@@ -2,7 +2,7 @@
 #include "mystructure.h"
 #include <stdio.h>
 #include <string.h>
-
+void viewAllReservations();
 // Reservation Management Functions
 void bookRoom() {
     Reservation res;
@@ -167,4 +167,55 @@ void reservationManagementMenu() {
                 break;
         }
     } while (choice != 4);
+}
+
+void adminreservationManagementMenu() {
+    int choice;
+    printf("\n");
+    do {
+        printf("\nReservation Management Menu:\n");
+        printf("1. Book Room\n");
+        printf("2. View Reservations\n");
+        printf("3. Cancel Reservation\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                bookRoom();
+                break;
+            case 2:
+                viewAllReservations();
+                break;
+            case 3:
+                cancelReservation();
+                break;
+            case 4:
+                printf("Exiting Reservation Menu.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    } while (choice != 4);
+}
+
+// Function to view all reservations in the admin menu
+void viewAllReservations() {
+    Reservation res;
+    char password[20];
+    FILE *fp = fopen("reservations.txt", "r");
+    if (!fp) {
+        printf("No reservations found.\n");
+        return;
+    }
+
+    printf("\nAll Reservations:\n");
+    printf("Guest ID\tRoom Number\t\tDate\t\tPassword\n");
+    printf("-------------------------------------------------\n");
+    while (fscanf(fp, "%s %d %s %s", res.guestID, &res.roomNumber, res.date, password) != EOF) {
+        printf("\t%s\t\t\t%d\t\t %s\t\t %s\n", res.guestID, res.roomNumber, res.date, password);
+    }
+    fclose(fp);
 }
