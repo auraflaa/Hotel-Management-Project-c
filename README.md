@@ -1,4 +1,4 @@
-Here's a README file for your Hotel Management System project:
+README file for Hotel Management System project:
 
 ---
 
@@ -70,4 +70,3 @@ This system ensures efficient hotel operations and secure handling of guest info
 
 ---
 
-Feel free to customize this README further to match your specific needs! 😊
