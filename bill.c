@@ -21,7 +21,20 @@ int calculateDays(const char *startDate, const char *endDate) {
     time_t x = mktime(&a);
     time_t y = mktime(&b);
 
+    // Ensure mktime conversion is successful
+    if (x == -1 || y == -1) {
+        printf("Error converting time. Ensure dates are correct.\n");
+        return -1;
+    }
+
     double difference = difftime(y, x) / (60 * 60 * 24);
+
+    // If end date is before start date, return an error
+    if (difference < 0) {
+        printf("End date is before start date.\n");
+        return -1;
+    }
+
     return (int)difference + 1; // Add 1 to include the start date
 }
 
@@ -47,7 +60,7 @@ void billing() {
     // Get the current date
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    sprintf(currentDate, "%02d/%02/%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    sprintf(currentDate, "%02d/%02d/%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 
     printf("Enter Guest ID: ");
     scanf("%s", guestID);
@@ -75,6 +88,14 @@ void billing() {
     }
 
     totalDays = calculateDays(res.date, endDate);
+    if (totalDays == -1) {
+        // Handle the date calculation error
+        fclose(fpRes);
+        fclose(fpRooms);
+        fclose(tempRooms);
+        fclose(tempRes);
+        return;
+    }
 
     while (fscanf(fpRooms, "%d %s %d", &r.roomNumber, r.type, &r.isAvailable) != EOF) {
         if (r.roomNumber == roomNumber) {
@@ -95,7 +116,7 @@ void billing() {
     }
 
     totalAmount = (double)totalDays * roomRate;
-    printf("Total amount to be paid for Room Number %d is: Rs.%.2lf/-\n",roomNumber, totalAmount);
+    printf("Total amount to be paid by Guest ID %s for Room Number %d is: Rs.%.2lf/-\n", guestID, roomNumber, totalAmount);
 
     char paymentConfirmation[10];
     printf("Has the payment been made? (yes/no): ");
