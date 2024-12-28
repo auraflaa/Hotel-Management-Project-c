@@ -1,4 +1,3 @@
-#include "myfunctions.h"
 #include "mystructure.h"
 #include <stdio.h>
 #include <string.h>
@@ -29,6 +28,7 @@ int calculateDays(const char *startDate, const char *endDate) {
 // Billing function
 void billing() {
     char guestID[10];
+    char password[20];
     char endDate[20], currentDate[20];
     int roomNumber, roomRate, totalDays;
     double totalAmount;
@@ -47,7 +47,7 @@ void billing() {
     // Get the current date
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    sprintf(currentDate, "%02d/%02d/%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    sprintf(currentDate, "%02d/%02/%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 
     printf("Enter Guest ID: ");
     scanf("%s", guestID);
@@ -55,13 +55,13 @@ void billing() {
     scanf("%d", &roomNumber);
 
     int found = 0;
-    while (fscanf(fpRes, "%s %d %s", res.guestID, &res.roomNumber, res.date) != EOF) {
+    while (fscanf(fpRes, "%s %d %s %s", res.guestID, &res.roomNumber, res.date, password) != EOF) {
         if (strcmp(res.guestID, guestID) == 0 && res.roomNumber == roomNumber) {
             found = 1;
             strcpy(endDate, currentDate);
             break;
         } else {
-            fprintf(tempRes, "%s %d %s\n", res.guestID, res.roomNumber, res.date);
+            fprintf(tempRes, "%s %d %s %s\n", res.guestID, res.roomNumber, res.date, password);
         }
     }
 
@@ -95,7 +95,7 @@ void billing() {
     }
 
     totalAmount = (double)totalDays * roomRate;
-    printf("Total amount to be paid by Guest ID %s for Room Number %d is: Rs.%.2lf/-\n", guestID, roomNumber, totalAmount);
+    printf("Total amount to be paid for Room Number %d is: Rs.%.2lf/-\n",roomNumber, totalAmount);
 
     char paymentConfirmation[10];
     printf("Has the payment been made? (yes/no): ");
@@ -116,9 +116,9 @@ void billing() {
         rename("tempRooms.txt", "rooms.txt");
 
         // Remove the reservation
-        while (fscanf(fpRes, "%s %d %s", res.guestID, &res.roomNumber, res.date) != EOF) {
+        while (fscanf(fpRes, "%s %d %s %s", res.guestID, &res.roomNumber, res.date, password) != EOF) {
             if (!(strcmp(res.guestID, guestID) == 0 && res.roomNumber == roomNumber)) {
-                fprintf(tempRes, "%s %d %s\n", res.guestID, res.roomNumber, res.date);
+                fprintf(tempRes, "%s %d %s %s\n", res.guestID, res.roomNumber, res.date, password);
             }
         }
         fclose(fpRes);
