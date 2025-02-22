@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 void adminMenu() {
   char username[20];
   char password[20];
@@ -46,7 +47,7 @@ int admin() {
       roomManagementMenu();
       break;
     case 2:
-      reservationManagementMenu();
+      adminreservationManagementMenu();
       break;
     case 3:
       printf("Exiting Admin Menu.\n");
