@@ -25,7 +25,7 @@ void addRoom() {
 
 void checkAvailability() {
   Room r;
-  FILE *fp = fopen("rooms.txt", "r"); // Read mode
+  FILE *fp = fopen("rooms.txt", "r"); 
   if (!fp) {
     printf("No room records found.\n");
     return;
