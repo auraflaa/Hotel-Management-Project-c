@@ -9,7 +9,7 @@ void bookRoom() {
     Room r;
     char password[20];
     FILE *fpRooms = fopen("rooms.txt", "r");
-    FILE *fpRes = fopen("reservations.txt", "a"); // Append mode
+    FILE *fpRes = fopen("reservations.txt", "a"); 
     FILE *temp = fopen("temp.txt", "w");
 
     int roomFound = 0;
