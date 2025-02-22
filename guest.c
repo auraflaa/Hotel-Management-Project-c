@@ -16,7 +16,7 @@ void addGuest() {
   printf("Enter Guest ID: ");
   scanf("%s", g.id);
   printf("Enter Guest Name: ");
-  scanf(" %[^\n]", g.name); // Read string with spaces
+  scanf(" %[^\n]", g.name);
   printf("Enter Phone: ");
   scanf("%s", g.phone);
   printf("Enter Email: ");
