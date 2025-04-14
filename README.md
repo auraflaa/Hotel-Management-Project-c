@@ -160,5 +160,5 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 The Hotel Management System was developed to provide an efficient, secure, and user-friendly solution for managing hotel operations. Its modular design and reliance on the C programming language ensure high performance and reliability. Contributions and suggestions for improvements are welcome.
 
----
+
 
