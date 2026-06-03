@@ -1,6 +1,13 @@
-
+<div align="center">
 
 # Hotel Management System
+
+
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![C++](https://img.shields.io/badge/C++-14+-blue.svg)](https://isocpp.org/)
+
+</div>
+
+---
 
 A robust and efficient C-based application designed to streamline hotel operations by managing room reservations, billing, and cancellations with secure password protection.
 
